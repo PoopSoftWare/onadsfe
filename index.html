@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>OndaFeed — Il tuo hub di uscite, freebie e offerte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@600;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><span>N</span></div>
+    <button class="snav-item active" data-section="home" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></button>
+    <button class="snav-item" data-section="nuevos" title="Novità"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg></button>
+    <button class="snav-item" data-section="gratis" title="Gratis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg></button>
+    <button class="snav-item" data-section="ofertas" title="Offerte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></button>
+    <button class="snav-item" data-section="noticias" title="News"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg></button>
+    <button class="snav-item" data-section="explorar" title="Esplora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">N</span><span class="brand-name">Nexus<span class="brand-accent">Feed</span></span></div>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" class="search-input" type="text" placeholder="Cerca nel catalogo..." />
+      </div>
+      <button id="aboutBtn" class="icon-btn" title="Info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button>
+    </header>
+
+    <div class="content">
+      <section id="section-home" class="panel active">
+        <div class="hero">
+          <div class="hero-grid"></div>
+          <div class="hero-content">
+            <span class="hero-tag">SYSTEM ONLINE</span>
+            <h1 class="hero-title">Tutto l'intrattenimento,<br/><span class="grad">in un unico feed.</span></h1>
+            <p class="hero-sub">Nuove uscite, titoli gratuiti e le migliori offerte — direttamente dentro Telegram, a un tap di distanza.</p>
+            <div class="hero-stats">
+              <div class="stat-chip"><strong id="statFree">0</strong><span>Gratis ora</span></div>
+              <div class="stat-chip"><strong id="statDeals">0</strong><span>Offerte attive</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="aggregator-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>OndaFeed è un aggregatore indipendente. Non siamo affiliati a Steam, Epic Games o GOG. I dati provengono da API pubbliche — gli acquisti avvengono sempre sullo store ufficiale.</span>
+        </div>
+
+        <div class="section-head"><div><p class="eyebrow">Questa Settimana</p><h2>Nuove Uscite</h2></div><button class="link-btn" data-goto="nuevos">Vedi tutti →</button></div>
+        <div id="carousel-nuevos-home" class="carousel"></div>
+
+        <div class="section-head"><div><p class="eyebrow">Completamente Gratis</p><h2>Disponibile Ora</h2></div><button class="link-btn" data-goto="gratis">Vedi tutti →</button></div>
+        <div id="carousel-gratis-home" class="carousel"></div>
+
+        <div class="section-head"><div><p class="eyebrow">Ribasso Prezzo</p><h2>Migliori Offerte</h2></div><button class="link-btn" data-goto="ofertas">Vedi tutti →</button></div>
+        <div id="carousel-ofertas-home" class="carousel"></div>
+
+        <div class="section-head"><div><p class="eyebrow">Trending</p><h2>News</h2></div><button class="link-btn" data-goto="noticias">Vedi tutti →</button></div>
+        <div id="news-list-home" class="news-list"></div>
+      </section>
+
+      <section id="section-nuevos" class="panel">
+        <div class="section-head"><div><p class="eyebrow">Catalogo</p><h2>Nuove Uscite</h2></div></div>
+        <div id="grid-nuevos" class="grid"></div>
+        <div id="sentinel-nuevos" class="scroll-sentinel"><span></span><span></span><span></span></div>
+      </section>
+
+      <section id="section-gratis" class="panel">
+        <div class="section-head"><div><p class="eyebrow">Catalogo</p><h2>Gratis</h2></div></div>
+        <div id="grid-gratis" class="grid"></div>
+      </section>
+
+      <section id="section-ofertas" class="panel">
+        <div class="section-head"><div><p class="eyebrow">Catalogo</p><h2>Offerte</h2></div></div>
+        <div id="grid-ofertas" class="grid"></div>
+        <div id="sentinel-ofertas" class="scroll-sentinel"><span></span><span></span><span></span></div>
+      </section>
+
+      <section id="section-noticias" class="panel">
+        <div class="section-head"><div><p class="eyebrow">Aggiornamenti</p><h2>News</h2></div></div>
+        <div id="news-list" class="news-list"></div>
+      </section>
+
+      <section id="section-explorar" class="panel">
+        <div class="section-head"><div><p class="eyebrow">Catalogo</p><h2>Esplora</h2></div></div>
+        <div id="genreChips" class="chips"></div>
+        <div id="grid-explorar" class="grid"></div>
+        <div id="sentinel-explorar" class="scroll-sentinel"><span></span><span></span><span></span></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div id="sheetBackdrop" class="sheet-backdrop">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <button id="sheetCloseBtn" class="sheet-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div id="sheetCover" class="sheet-cover"></div>
+    <div class="sheet-body">
+      <h3 id="sheetTitle"></h3>
+      <p id="sheetMeta" class="sheet-meta"></p>
+      <div id="sheetRatings" class="sheet-ratings"></div>
+      <div id="sheetDesc" class="sheet-desc"></div>
+      <div id="sheetStores" class="sheet-stores"></div>
+    </div>
+  </div>
+</div>
+
+<div id="aboutBackdrop" class="about-backdrop">
+  <div class="about-card">
+    <h3>Informazioni su OndaFeed</h3>
+    <p>OndaFeed riunisce in un unico posto nuove uscite, titoli gratuiti e le migliori offerte. Siamo un aggregatore indipendente — non uno store ufficiale e non siamo affiliati a Steam, Epic Games Store, GOG o altre piattaforme.</p>
+    <p>I dati provengono dalle API pubbliche di RAWG, CheapShark e GamerPower; le news da feed RSS del settore. Acquisti e riscatti avvengono sempre sullo store ufficiale.</p>
+    <p class="version">Versione 1.0 · Nessuna pubblicità di terze parti.</p>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
